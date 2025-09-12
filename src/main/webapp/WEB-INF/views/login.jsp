@@ -25,7 +25,13 @@
                 <div class="card">
                     <div class="card-header">
                         <span class="card-icon" style="color: ${category.cardColor()};">${category.icon()}</span>
-                        <h3 style="color: ${category.cardColor()};">Escola_ ${category.name()}</h3>
+                        <h3>
+                            <span class="prefixo" style="color: ${category.cardColor()};">Escola_</span>
+                            <span class="categoria" style="color: ${category.cardColor()};">${category.name()}</span>
+                        </h3>
+                        
+                        
+                        
                     </div>
                     <p>
                         <c:forEach items="${category.activeCourses()}" var="course" varStatus="status">

@@ -110,20 +110,36 @@ body {
 
 .card-header {
     display: flex;
-    align-items: center;
+    flex-direction: column; /* ícone em cima, texto embaixo */
+    align-items: flex-start; /* alinha tudo à esquerda */
     gap: 0.5rem;
     margin-bottom: 0.5rem;
 }
 
 .card-icon {
-    font-size: 1.5rem;
-    display: inline-block;
+    font-size: 27px;
+    margin-bottom: 5px; /* espaço entre ícone e "Escola_" */
 }
 
 .card h3 {
     margin: 0;
     font-size: 1.1rem;
     font-weight: bold;
+}
+
+.prefixo {
+    display: block;
+    font-size:18px;
+    font-weight: normal;
+    margin-bottom: 0.2rem;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.categoria {
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Inter', sans-serif;
 }
 
 .card p {
