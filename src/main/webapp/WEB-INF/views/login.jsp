@@ -1,4 +1,5 @@
 <%@ page pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -19,16 +20,23 @@
         <h2>Ainda não estuda com a gente?</h2>
         <p>São mais de mil cursos nas seguintes áreas:</p>
 
-<%--    TODO: Implementar a Questão 3 (As informações devem vir do seu banco de dados)  --%>
         <div class="grid">
-            <div class="card"><h3>Escola_ PROGRAMAÇÃO</h3><p>Lógica de programação, .NET, Automação e Produtividade</p></div>
-            <div class="card"><h3>Escola_ FRONT-END</h3><p>HTML, CSS, Svelte, VueJS</p></div>
-            <div class="card"><h3>Escola_ DATA SCIENCE</h3><p>SQL e Banco de Dados, Engenharia de Dados, Análise de dados</p></div>
-            <div class="card"><h3>Escola_ INTELIGÊNCIA ARTIFICIAL</h3><p>IA para Criativos, IA para Programação, IA para Negócios</p></div>
-            <div class="card"><h3>Escola_ DEVOPS</h3><p>Linux, FinOps, Automação de processos</p></div>
-            <div class="card"><h3>Escola_ UX & DESIGN</h3><p>UI Design, Design System, UX Writing</p></div>
-            <div class="card"><h3>Escola_ MOBILE</h3><p>Flutter, Android, iOS</p></div>
-            <div class="card"><h3>Escola_ INOVAÇÃO & GESTÃO</h3><p>Agilidade, Liderança, Ensino e Aprendizagem</p></div>
+            <c:forEach items="${categoriesWithCourses}" var="category">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon" style="color: ${category.cardColor()};">${category.icon()}</span>
+                        <h3 style="color: ${category.cardColor()};">Escola_ ${category.name()}</h3>
+                    </div>
+                    <p>
+                        <c:forEach items="${category.activeCourses()}" var="course" varStatus="status">
+                            ${course}<c:if test="${!status.last}">, </c:if>
+                        </c:forEach>
+                        <c:if test="${empty category.activeCourses()}">
+                            Em breve novos cursos nesta área!
+                        </c:if>
+                    </p>
+                </div>
+            </c:forEach>
         </div>
     </div>
 </div>

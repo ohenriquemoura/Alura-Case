@@ -108,14 +108,27 @@ body {
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
 }
 
-.card h3 {
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     margin-bottom: 0.5rem;
+}
+
+.card-icon {
+    font-size: 1.5rem;
+    display: inline-block;
+}
+
+.card h3 {
+    margin: 0;
     font-size: 1.1rem;
-    color: #7CFFCB;
+    font-weight: bold;
 }
 
 .card p {
     font-size: 0.9rem;
     line-height: 1.4;
     color: #cfd8e3;
+    margin: 0;
 }
