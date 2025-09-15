@@ -24,7 +24,7 @@
                 <th>Instrutor</th>
                 <th>Categoria</th>
                 <th>Status</th>
-                <th></th>
+                <th>Ações</th>
             </tr>
             </thead>
             <tbody>
@@ -36,11 +36,19 @@
                     <td>${course.categoryName()}</td>
                     <td>${course.status()}</td>
                     <td>
-                        <c:if test="${course.status() == 'ACTIVE'}">
-                            <form action="/course/${course.code()}/inactive" method="post" style="display:inline">
-                                <button type="submit" class="btn btn-warning">Inativar</button>
-                            </form>
-                        </c:if>
+                        <a class="btn btn-primary" href="/admin/course/edit/${course.id()}">Editar</a>
+                        <c:choose>
+                            <c:when test="${course.status() == 'ACTIVE'}">
+                                <form action="/admin/course/${course.id()}/toggle-status" method="post" style="display:inline">
+                                    <button type="submit" class="btn btn-warning">Inativar</button>
+                                </form>
+                            </c:when>
+                            <c:otherwise>
+                                <form action="/admin/course/${course.id()}/toggle-status" method="post" style="display:inline">
+                                    <button type="submit" class="btn btn-success">Ativar</button>
+                                </form>
+                            </c:otherwise>
+                        </c:choose>
                     </td>
                 </tr>
             </c:forEach>

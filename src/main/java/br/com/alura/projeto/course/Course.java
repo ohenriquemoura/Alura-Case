@@ -95,6 +95,34 @@ public class Course {
         this.status = CourseStatus.INACTIVE;
         this.deactivatedAt = LocalDateTime.now();
     }
+
+    public void activate() {
+        if (this.status == CourseStatus.ACTIVE) {
+            return;
+        }
+        this.status = CourseStatus.ACTIVE;
+        this.deactivatedAt = null;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setInstructorEmail(String instructorEmail) {
+        this.instructorEmail = instructorEmail;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }
 
 

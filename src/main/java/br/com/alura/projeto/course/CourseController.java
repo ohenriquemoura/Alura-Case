@@ -85,4 +85,86 @@ public class CourseController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/admin/course/edit/{id}")
+    public String edit(@PathVariable Long id, Model model) {
+        Course course = courseRepository.findById(id).orElse(null);
+        if (course == null) {
+            return "redirect:/admin/courses";
+        }
+        
+        NewCourseForm form = new NewCourseForm();
+        form.setName(course.getName());
+        form.setCode(course.getCode());
+        form.setDescription(course.getDescription());
+        form.setInstructorEmail(course.getInstructorEmail());
+        form.setCategoryId(course.getCategory().getId());
+        
+        model.addAttribute("newCourseForm", form);
+        model.addAttribute("courseId", id);
+        model.addAttribute("categories", categoryRepository.findAll());
+        return "admin/course/editForm";
+    }
+
+    @Transactional
+    @PostMapping("/admin/course/edit/{id}")
+    public String update(@PathVariable Long id, @Valid NewCourseForm form, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("courseId", id);
+            model.addAttribute("categories", categoryRepository.findAll());
+            return "admin/course/editForm";
+        }
+
+        // validar padrão do code: letras minúsculas e hífens (ex.: spring-boot-avancado)
+        if (!form.getCode().matches("^[a-z]+(-[a-z]+)*$")) {
+            model.addAttribute("courseId", id);
+            model.addAttribute("categories", categoryRepository.findAll());
+            return "admin/course/editForm";
+        }
+
+        Course existingCourse = courseRepository.findById(id).orElse(null);
+        if (existingCourse == null) {
+            return "redirect:/admin/courses";
+        }
+
+        // Check if code is being changed and if new code already exists
+        if (!existingCourse.getCode().equals(form.getCode()) && courseRepository.existsByCode(form.getCode())) {
+            model.addAttribute("courseId", id);
+            model.addAttribute("categories", categoryRepository.findAll());
+            return "admin/course/editForm";
+        }
+
+        Category category = categoryRepository.findById(form.getCategoryId()).orElse(null);
+        if (category == null) {
+            model.addAttribute("courseId", id);
+            model.addAttribute("categories", categoryRepository.findAll());
+            return "admin/course/editForm";
+        }
+
+        existingCourse.setName(form.getName());
+        existingCourse.setCode(form.getCode());
+        existingCourse.setDescription(form.getDescription());
+        existingCourse.setInstructorEmail(form.getInstructorEmail());
+        existingCourse.setCategory(category);
+        
+        courseRepository.save(existingCourse);
+        return "redirect:/admin/courses";
+    }
+
+    @PostMapping("/admin/course/{id}/toggle-status")
+    public String toggleStatus(@PathVariable Long id) {
+        Course course = courseRepository.findById(id).orElse(null);
+        if (course == null) {
+            return "redirect:/admin/courses";
+        }
+        
+        if (course.getStatus() == CourseStatus.ACTIVE) {
+            course.inactivate();
+        } else {
+            course.activate();
+        }
+        
+        courseRepository.save(course);
+        return "redirect:/admin/courses";
+    }
+
 }

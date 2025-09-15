@@ -15,11 +15,6 @@ public record CategoryWithCoursesDTO(Long id,
                                      String cardColor,
                                      String icon) {
 
-    private static final String[] CARD_COLORS = {
-        "#FF6B6B", "#4ECDC4", "#45B7D1", "#96CEB4", "#FFEAA7", 
-        "#DDA0DD", "#98D8C8", "#F7DC6F", "#BB8FCE", "#85C1E9"
-    };
-    
     private static final String[] ICONS = {
         "💻", "🎨", "📊", "🤖", "⚙️", "🎯", "📱", "🚀", "🔧", "💡"
     };
@@ -34,13 +29,34 @@ public record CategoryWithCoursesDTO(Long id,
                         .filter(course -> course.getStatus().name().equals("ACTIVE"))
                         .map(Course::getName)
                         .toList(),
-                getRandomCardColor(category.getId()),
+                validateColor(category.getColor()),
                 getRandomIcon(category.getId()));
     }
     
-    private static String getRandomCardColor(Long categoryId) {
-        Random random = new Random(categoryId);
-        return CARD_COLORS[random.nextInt(CARD_COLORS.length)];
+    private static String validateColor(String color) {
+        if (color == null || color.trim().isEmpty()) {
+            return "#FFFFFF"; // branco como fallback
+        }
+        
+        // Validação básica de cor hexadecimal
+        String cleanColor = color.trim().toUpperCase();
+        if (cleanColor.matches("^#[0-9A-F]{6}$")) {
+            return cleanColor;
+        }
+        
+        // Cores nomeadas básicas
+        switch (cleanColor.toLowerCase()) {
+            case "red": return "#FF0000";
+            case "green": return "#00FF00";
+            case "blue": return "#0000FF";
+            case "yellow": return "#FFFF00";
+            case "purple": return "#800080";
+            case "orange": return "#FFA500";
+            case "pink": return "#FFC0CB";
+            case "black": return "#000000";
+            case "white": return "#FFFFFF";
+            default: return "#FFFFFF"; // branco como fallback
+        }
     }
     
     private static String getRandomIcon(Long categoryId) {
