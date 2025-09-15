@@ -4,7 +4,6 @@ import br.com.alura.projeto.category.Category;
 import br.com.alura.projeto.course.Course;
 
 import java.util.List;
-import java.util.Random;
 
 public record CategoryWithCoursesDTO(Long id,
                                      String name,
@@ -14,10 +13,6 @@ public record CategoryWithCoursesDTO(Long id,
                                      List<String> activeCourses,
                                      String cardColor,
                                      String icon) {
-
-    private static final String[] ICONS = {
-        "💻", "🎨", "📊", "🤖", "⚙️", "🎯", "📱", "🚀", "🔧", "💡"
-    };
 
     public CategoryWithCoursesDTO(Category category, List<Course> courses) {
         this(category.getId(),
@@ -30,7 +25,7 @@ public record CategoryWithCoursesDTO(Long id,
                         .map(Course::getName)
                         .toList(),
                 validateColor(category.getColor()),
-                getRandomIcon(category.getId()));
+                validateIcon(category.getIcon()));
     }
     
     private static String validateColor(String color) {
@@ -59,8 +54,18 @@ public record CategoryWithCoursesDTO(Long id,
         }
     }
     
-    private static String getRandomIcon(Long categoryId) {
-        Random random = new Random(categoryId);
-        return ICONS[random.nextInt(ICONS.length)];
+    private static String validateIcon(String icon) {
+        if (icon == null || icon.trim().isEmpty()) {
+            return "ti-star"; // ícone padrão
+        }
+        
+        // Validação básica para ícones Themify
+        String cleanIcon = icon.trim().toLowerCase();
+        if (cleanIcon.startsWith("ti-")) {
+            return cleanIcon;
+        }
+        
+        // Se não começar com ti-, adiciona o prefixo
+        return "ti-" + cleanIcon;
     }
 }

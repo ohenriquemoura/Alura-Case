@@ -65,6 +65,7 @@ public class CategoryController {
         form.setName(category.getName());
         form.setCode(category.getCode());
         form.setColor(category.getColor());
+        form.setIcon(category.getIcon());
         form.setOrder(category.getOrder());
         
         model.addAttribute("newCategoryForm", form);
@@ -94,10 +95,10 @@ public class CategoryController {
         existingCategory.setName(form.getName());
         existingCategory.setCode(form.getCode());
         existingCategory.setColor(form.getColor());
+        existingCategory.setIcon(form.getIcon());
         existingCategory.setOrder(form.getOrder());
         
         categoryRepository.save(existingCategory);
         return "redirect:/admin/categories";
     }
-
 }

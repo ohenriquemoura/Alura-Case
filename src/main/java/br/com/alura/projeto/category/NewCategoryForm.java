@@ -19,8 +19,11 @@ public class NewCategoryForm {
     @NotBlank
     private String color;
 
+    @NotBlank
+    private String icon;
+
     public Category toModel() {
-        return new Category(name, code, color, order);
+        return new Category(name, code, color, icon, order);
     }
 
     public String getName() {
@@ -53,5 +56,13 @@ public class NewCategoryForm {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

@@ -25,6 +25,9 @@ public class Category {
     @NotBlank
     private String color;
 
+    @NotBlank
+    private String icon;
+
     @NotNull
     @Min(1)
     @Column(name = "`order`")
@@ -35,10 +38,11 @@ public class Category {
     @Deprecated
     public Category() {}
 
-    public Category(String name, String code, String color, int order) {
+    public Category(String name, String code, String color, String icon, int order) {
         this.name = name;
         this.code = code;
         this.color = color;
+        this.icon = icon;
         this.order = order;
     }
 
@@ -62,6 +66,10 @@ public class Category {
         return code;
     }
 
+    public String getIcon() {
+        return icon;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -72,6 +80,10 @@ public class Category {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public void setOrder(int order) {

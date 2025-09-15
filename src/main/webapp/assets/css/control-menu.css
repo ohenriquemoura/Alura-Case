@@ -1,0 +1,238 @@
+/* Control Menu CSS */
+.control-menu {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    background: rgba(0, 35, 90, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.control-menu:hover {
+    background: rgba(0, 35, 90, 1);
+    transform: scale(1.05);
+}
+
+.control-icon {
+    width: 24px;
+    height: 18px;
+    position: relative;
+    display: block;
+}
+
+.control-icon span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: #7CFFCB;
+    border-radius: 1px;
+    position: absolute;
+    transition: all 0.3s ease;
+}
+
+.control-icon span:nth-child(1) {
+    top: 0;
+}
+
+.control-icon span:nth-child(2) {
+    top: 8px;
+}
+
+.control-icon span:nth-child(3) {
+    top: 16px;
+}
+
+/* Animação do control menu quando ativo */
+.control-menu.active .control-icon span:nth-child(1) {
+    transform: rotate(45deg);
+    top: 8px;
+}
+
+.control-menu.active .control-icon span:nth-child(2) {
+    opacity: 0;
+}
+
+.control-menu.active .control-icon span:nth-child(3) {
+    transform: rotate(-45deg);
+    top: 8px;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    height: 100vh;
+    background: rgba(0, 35, 90, 0.95);
+    backdrop-filter: blur(15px);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+    transition: left 0.3s ease;
+    overflow-y: auto;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+/* Overlay para fechar o menu */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Conteúdo do sidebar */
+.sidebar-header {
+    padding: 2rem 1.5rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-title {
+    color: #7CFFCB;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+    text-align: center;
+}
+
+.sidebar-subtitle {
+    color: #cfd8e3;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+.sidebar-nav {
+    padding: 1rem 0;
+}
+
+.nav-section {
+    margin-bottom: 2rem;
+}
+
+.nav-section-title {
+    color: #7CFFCB;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0 1.5rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-links li {
+    margin: 0;
+}
+
+.nav-link {
+    display: block;
+    padding: 0.8rem 1.5rem;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+}
+
+.nav-link:hover {
+    background: rgba(124, 255, 203, 0.1);
+    border-left-color: #7CFFCB;
+    color: #7CFFCB;
+    text-decoration: none;
+}
+
+.nav-link.active {
+    background: rgba(124, 255, 203, 0.15);
+    border-left-color: #7CFFCB;
+    color: #7CFFCB;
+}
+
+.nav-link-icon {
+    margin-right: 0.8rem;
+    width: 16px;
+    text-align: center;
+    display: inline-block;
+}
+
+.nav-link-text {
+    font-weight: 500;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .hamburger-menu {
+        top: 15px;
+        left: 15px;
+        padding: 10px;
+    }
+    
+    .sidebar {
+        width: 280px;
+    }
+    
+    .sidebar-header {
+        padding: 1.5rem 1rem 1rem;
+    }
+    
+    .nav-link {
+        padding: 0.7rem 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 100vw;
+        left: -100vw;
+    }
+    
+    .sidebar.active {
+        left: 0;
+    }
+}
+
+/* Animação de entrada dos itens do menu */
+.nav-link {
+    animation: slideInLeft 0.3s ease forwards;
+    opacity: 0;
+    transform: translateX(-20px);
+}
+
+.nav-link:nth-child(1) { animation-delay: 0.1s; }
+.nav-link:nth-child(2) { animation-delay: 0.15s; }
+.nav-link:nth-child(3) { animation-delay: 0.2s; }
+.nav-link:nth-child(4) { animation-delay: 0.25s; }
+.nav-link:nth-child(5) { animation-delay: 0.3s; }
+.nav-link:nth-child(6) { animation-delay: 0.35s; }
+.nav-link:nth-child(7) { animation-delay: 0.4s; }
+.nav-link:nth-child(8) { animation-delay: 0.45s; }
+
+@keyframes slideInLeft {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
