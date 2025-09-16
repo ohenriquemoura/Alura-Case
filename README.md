@@ -1,114 +1,167 @@
-# Projeto Alura
+# Projeto Alura - Sistema de Ensino Online
 
-Bem-vinda(o) ao teste para **Pessoa Desenvolvedora - Fullstack** da Alura!
+## 📋 Visão Geral
 
-Neste desafio, será simulado uma parte do domínio de uma plataforma educacional para que você possa demonstrar seus conhecimentos técnicos.
-
-Não há respostas certas ou erradas, queremos avaliar como você aplica conceitos de lógica e orientação a objetos para resolver problemas.
-
-## Requisitos
-
-- Java 18 ou superior
-- Spring Boot
-- Spring Data JPA
-- MySQL
-- Migrações de banco de dados manuais com [Flyway](https://www.baeldung.com/database-migrations-with-flyway)
-- HTML, CSS e JavaScript
-- JSP
-
-## Instruções
-
-1. Faça o upload do template inicial do projeto no seu repositório GitHub e mantenha-o público (seus commits serão avaliados).
-2. Importe o projeto na IDE de sua escolha.
-3. O código deve ser todo escrito em inglês, mesmo que os requisitos estejam em português.
-
-## Desafio
-
-O projeto base já contém a configuração das tecnologias requeridas. Algumas funcionalidades relacionadas à entidade `Category` e `User` estão implementadas e podem servir como guia para a resolução das questões.
-
-### Questão 1 - Cadastro de Cursos
-
-Na Alura, grande parte das funcionalidades gira em torno dos cursos. Sua primeira tarefa é listar e implementar o cadastro de cursos, obedecendo às regras definidas abaixo.
-
-#### Atributos
-
-- Nome
-- Código (entre 4 e 10 caracteres)
-- Instrutor
-- Categoria
-- Descrição
-- Status (`ACTIVE`, `INACTIVE`)
-- Data de inativação
-
-#### Regras
-
-- O código do curso deve ser único, textual, sem espaços, números ou caracteres especiais, podendo ser separado por hífen (ex.: `spring-boot-avancado`).
-- Os novos cursos devem ser automaticamente definidos como `ACTIVE`.
-- O campo "data de inativação" só deve ser preenchido quando o curso for inativado.
-
-> [!TIP]
-> Há um ponto de partida no `CourseController` com a rota `admin/course/new`.
-
-### Questão 2 - Inativação de Cursos
-
-Cursos podem ser inativados por diversos motivos, como atualizações ou descontinuação. Você será responsável por implementar essa funcionalidade, seguindo as regras a seguir.
-
-#### Regras
-
-- Acesse a rota `/course/{code}/inactive` para inativar o curso com o código fornecido.
-- Ao inativar, o campo "status" deve ser alterado para `INACTIVE` e o campo "data de inativação" deve ser registrado com a data e hora atuais.
+Este projeto é uma plataforma educacional completa desenvolvida em Spring Boot, implementando funcionalidades de gestão de cursos, categorias, usuários e matrículas. O sistema foi desenvolvido seguindo as melhores práticas de desenvolvimento web e inclui uma interface moderna e responsiva.
 
 
-### Questão 3 - Front-end página de Login
 
-Com as categorias e os cursos criados, o próximo passo é fazer com que a página de login receba essas informações dinâmica e a estilização de acordo com o Figma disponibilizado.
+## 📊 Modelo de Dados
 
-- [Figma](https://www.figma.com/design/LNOkJ6pnamwQfoWtOlRCPm/Login?node-id=1-303)
+### Entidades Principais
 
-> [!TIP]
-> Já existe um ponto de partida no `LoginController`.
+#### User (Usuário)
+- **Campos**: id, name, email, password, role
+- **Roles**: STUDENT, ADMIN
+- **Funcionalidades**: Criptografia MD5 da senha
 
+#### Category (Categoria)
+- **Campos**: id, name, code, color, icon, order, createdAt
+- **Validações**: Código único, nome obrigatório
+- **Funcionalidades**: Ordenação personalizada, ícones temáticos
 
-### Bônus (não obrigatório para as questões 4, 5, 6)
+#### Course (Curso)
+- **Campos**: id, name, code, description, instructorEmail, status, category, deactivatedAt
+-- A escolha de utilizar o e-mail para identificar o instrutor foi feita para servir de chave única, já que instrutores podem ter o mesmo nome 
+- **Status**: ACTIVE, INACTIVE
+- **Validações**: Código único, formato específico (letras minúsculas + hífen)
+- **Funcionalidades**: Inativação automática com timestamp
+#### Registration (Matrícula)
+- **Campos**: id, user, course, enrollmentDate
+- **Validações**: Usuário não pode se matricular duas vezes no mesmo curso
+- **Funcionalidades**: Apenas cursos ativos podem receber matrículas
 
-### Questão 4 - Edição de Categorias e Cursos
+## 🎯 Funcionalidades Implementadas
 
-Com a criação das Categorias e Cursos, podemos criar a edição para ambos.
-- Podemos deixar na opção de edição desativar e ativar Cursos.
+### ✅ Questão 1 - Cadastro de Cursos
+- **Implementação**: CRUD completo para cursos
+- **Validações**: Código único, formato específico, categoria obrigatória
+- **Interface**: Formulários de criação e edição com validação em tempo real
+- **Status**: Cursos criados automaticamente como ACTIVE
 
+### ✅ Questão 2 - Inativação de Cursos
+- **Endpoint**: `POST /course/{code}/inactive`
+- **Funcionalidade**: Inativação com timestamp automático
+- **Interface**: Botões de ativação/desativação na listagem de cursos
 
-### Questão 5 - Matrícula de Alunos via API
+### ✅ Questão 3 - Front-end Página de Login
+- **Design**: Interface moderna baseada no Figma fornecido
+- **Funcionalidades**: 
+  - Carregamento dinâmico de categorias e cursos
+  - Design responsivo com gradientes e efeitos visuais
+  - Integração com sistema de autenticação
 
-Com os cursos criados, o próximo passo é permitir que os alunos se matriculem nos cursos disponíveis.
+### ✅ Questão 4 - Edição de Categorias e Cursos
+- **Categorias**: Formulário de edição com validações
+- **Cursos**: Edição completa com validação de código único
+- **Interface**: Formulários intuitivos com feedback visual
 
-#### Atributos
+### ✅ Questão 5 - Matrícula de Alunos via API
+- **Endpoint**: `POST /registration/new`
+- **Validações**: 
+  - Usuário não pode se matricular duas vezes no mesmo curso
+  - Apenas cursos ativos aceitam matrículas
+- **DTO**: `NewRegistrationDTO` para transferência de dados
+- **Interface**: Páginas de teste para demonstração
 
-- Usuário
-- Curso
-- Data de matrícula
+### ✅ Questão 6 - Relatório de Cursos Mais Acessados
+- **Endpoint**: `GET /registration/report`
+- **Implementação**: SQL nativo otimizado para evitar N+1
+- **Interface**: Página dedicada com ranking visual e medalhas
+- **Funcionalidades**: 
+  - Ordenação por número de matrículas
+  - Exibição de categoria, instrutor e estatísticas
+  - Design responsivo com tabelas interativas
 
-#### Regras
+## 🎨 Interface e Design
 
-- Um usuário não pode se matricular mais de uma vez no mesmo curso.
-- Só é permitido matrícula em cursos ativos.
+### Control Menu (Sidebar)
+- **Implementação**: Menu lateral responsivo com animações
+- **Funcionalidades**: 
+  - Navegação entre todas as páginas
+  - Design moderno com ícones e cores temáticas
+  - Responsividade para dispositivos móveis
 
-> [!TIP]
-> Já existe um ponto de partida no `RegistrationController`.
+### Páginas Principais
+- **Login**: Design moderno com gradientes e efeitos visuais
+- **Admin**: Interface administrativa para gestão de conteúdo
+- **Relatórios**: Visualização de dados com ranking e estatísticas
+- **Formulários**: Validação em tempo real com feedback visual
 
-### Questão 6 - Relatório de Cursos Mais Acessados via API
+### Responsividade
+- **Mobile First**: Design otimizado para dispositivos móveis
+- **Breakpoints**: Adaptação para tablets e desktops
+- **Componentes**: Cards, tabelas e formulários responsivos
 
-Agora que temos usuários e matrículas, queremos gerar um relatório para identificar os cursos mais acessados. Implemente a lógica na rota `/registration/report` para listar os cursos com mais matrículas, ordenados pelo número de inscrições.
+## 🧪 Testes Implementados
 
-> [!IMPORTANT]
-> A Alura possui um grande volume de dados. Portanto, priorize o uso de SQL nativo na construção do relatório e evite o [anti-pattern N+1](https://semantix.ai/o-que-e-o-problema-n1/).
+### Estratégia de Testes
+- **Testes Unitários**: Entidades e lógica de negócio
+- **Testes de Controller**: Endpoints e validações
+- **Cobertura**: Foco nas funcionalidades críticas
 
-## Considerações Finais
+### Testes por Módulo
 
-- A avaliação será baseada na implementação dos requisitos e na forma como você aplica conceitos de lógica e orientação a objetos.
-- Caso tenha dúvidas durante o desenvolvimento, faça anotações no código e implemente o que considerar mais adequado.
-- Testes são altamente valorizados, e candidatos que implementarem testes automatizados ganharão pontos extras.
-- Códigos muito semelhantes aos de outros candidatos podem resultar na anulação do teste.
-- O uso de ferramentas de IA é permitido, mas o código gerado deve ser revisado. Caso avance para a próxima etapa, a entrevista técnica será baseada no código que você produziu.
+#### User Tests
+- Validação de criptografia de senha
+- Testes de controller com validações de email
+- Testes de criação e listagem de usuários
 
-> [!TIP]
-> Para uma melhor organização dos commits, considere seguir as [convenções de commits](https://www.conventionalcommits.org/pt-br/v1.0.0/). Isso ajuda a manter um histórico claro e compreensível do projeto.
+#### Course Tests
+- Validação de criação de cursos
+- Testes de ativação/desativação
+- Testes de controller para CRUD
+
+#### Category Tests
+- Validação de propriedades da categoria
+- Testes de controller para listagem e edição
+- Testes de redirecionamento
+
+## 🗄️ Banco de Dados
+
+### Migrações Flyway
+- **V1**: Criação da tabela User
+- **V2**: Criação da tabela Category
+- **V3**: Criação da tabela Course
+- **V4**: Criação da tabela Registration
+- **V5**: Adição de campos de ícone e ordem para Category
+- **V6**: Inserção de 20 categorias de teste
+
+### Relacionamentos
+- **Course → Category**: Many-to-One
+- **Registration → User**: Many-to-One
+- **Registration → Course**: Many-to-One
+
+## 🚀 Como Executar
+
+### Endpoints Principais
+- **Login**: `GET /`
+- **Admin Cursos**: `GET /admin/courses`
+- **Admin Categorias**: `GET /admin/categories`
+- **Relatório**: `GET /course-report`
+- **API Matrícula**: `POST /registration/new`
+- **API Relatório**: `GET /registration/report`
+
+## 📈 Melhorias Implementadas
+
+### Performance
+- **SQL Nativo**: Relatórios otimizados para grandes volumes
+- **Lazy Loading**: Carregamento eficiente de relacionamentos
+- **Índices**: Otimização de consultas frequentes
+
+### UX/UI
+- **Design System**: Cores e componentes consistentes
+- **Feedback Visual**: Validações em tempo real
+- **Responsividade**: Adaptação para todos os dispositivos
+- **Acessibilidade**: Navegação intuitiva e clara
+
+### Código
+- **Clean Code**: Código limpo e bem documentado
+- **Padrões**: Seguimento de convenções Java/Spring
+- **Validações**: Validações robustas em todas as camadas
+- **Tratamento de Erros**: Mensagens claras e informativas
+
+## 📝 Extras
+
+- Implementação de uma searchbar, sidebar e filtros para melhor experiência e correção por parte dos avaliadores
+- Melhorias no css para um visual mais agradável e coerente com o figma
