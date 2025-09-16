@@ -82,6 +82,92 @@ body {
     flex-direction: column;
 }
 
+/* Searchbar Styles */
+.search-container {
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.search-box {
+    position: relative;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.search-input {
+    width: 100%;
+    padding: 1rem 1rem 1rem 3rem;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #7CFFCB;
+    box-shadow: 0 0 20px rgba(124, 255, 203, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+    font-style: italic;
+}
+
+.search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #7CFFCB;
+    font-size: 1.2rem;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.search-results {
+    margin-top: 1rem;
+    text-align: center;
+    color: #cfd8e3;
+    font-size: 0.9rem;
+}
+
+.search-results strong {
+    color: #7CFFCB;
+}
+
+/* Animação para cards quando filtrados */
+.card.hidden {
+    display: none !important;
+}
+
+.card.visible {
+    display: block !important;
+    opacity: 1;
+    transform: scale(1);
+    transition: all 0.3s ease;
+}
+
+/* Estado vazio */
+.no-results {
+    text-align: center;
+    padding: 2rem;
+    color: #cfd8e3;
+    font-style: italic;
+}
+
+.no-results-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
 .courses h2 {
     margin-bottom: 0.5rem;
     font-size: 1.6rem;
@@ -151,4 +237,47 @@ body {
     line-height: 1.4;
     color: #cfd8e3;
     margin: 0;
+}
+
+/* Responsividade para a searchbar */
+@media (max-width: 768px) {
+    .search-box {
+        max-width: 100%;
+        margin: 0 1rem;
+    }
+    
+    .search-input {
+        padding: 0.8rem 0.8rem 0.8rem 2.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .search-icon {
+        left: 0.8rem;
+        font-size: 1rem;
+    }
+    
+    .search-results {
+        font-size: 0.8rem;
+        margin-top: 0.8rem;
+    }
+    
+    .no-results {
+        padding: 1.5rem 1rem;
+    }
+    
+    .no-results-icon {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-input {
+        padding: 0.7rem 0.7rem 0.7rem 2.2rem;
+        font-size: 0.85rem;
+    }
+    
+    .search-icon {
+        left: 0.7rem;
+        font-size: 0.9rem;
+    }
 }

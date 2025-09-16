@@ -180,13 +180,13 @@
             })
             .catch(error => {
                 console.error('Erro:', error);
-                document.getElementById('report-content').innerHTML = 
+                document.getElementById('report-content').innerHTML =
                     '<p style="color: red;">Erro ao carregar dados</p>';
             });
 
         function displayReport(data) {
             if (!data || data.length === 0) {
-                document.getElementById('report-content').innerHTML = 
+                document.getElementById('report-content').innerHTML =
                     '<p style="text-align: center; color: #cfd8e3;">Nenhum curso encontrado</p>';
                 return;
             }
@@ -195,11 +195,11 @@
             html += '<table>';
             html += '<thead><tr><th>#</th><th>Curso</th><th>Código</th><th>Categoria</th><th>Instrutor</th><th>Matrículas</th></tr></thead>';
             html += '<tbody>';
-            
+
             data.forEach((course, index) => {
                 const rank = index + 1;
                 const medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '';
-                
+
                 html += '<tr>';
                 html += '<td style="text-align: center; font-weight: bold;"><span class="medal">' + medal + '</span> ' + rank + '</td>';
                 html += '<td><strong>' + (course.courseName || 'N/A') + '</strong></td>';
@@ -209,7 +209,7 @@
                 html += '<td style="text-align: center;"><span class="enrollment-badge">' + (course.enrollmentCount || 0) + '</span></td>';
                 html += '</tr>';
             });
-            
+
             html += '</tbody></table>';
             html += '</div>';
             document.getElementById('report-content').innerHTML = html;

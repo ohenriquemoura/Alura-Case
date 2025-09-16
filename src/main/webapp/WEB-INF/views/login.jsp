@@ -65,6 +65,19 @@
         <h2>Ainda não estuda com a gente?</h2>
         <p>São mais de mil cursos nas seguintes áreas:</p>
 
+        <!-- Search Container -->
+        <div class="search-container">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" 
+                       id="category-search" 
+                       class="search-input" 
+                       placeholder="Buscar categorias..."
+                       autocomplete="off">
+            </div>
+            <div id="search-results"></div>
+        </div>
+
         <div class="grid">
             <c:forEach items="${categoriesWithCourses}" var="category">
                 <div class="card">
@@ -93,5 +106,6 @@
 </div>
 
 <script src="/assets/js/control-menu.js"></script>
+<script src="/assets/js/login-search.js"></script>
 </body>
 </html>

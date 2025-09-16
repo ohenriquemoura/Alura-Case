@@ -11,7 +11,7 @@ public class NewCourseForm {
     @NotBlank
     private String name;
 
-    // Código textual, sem espaços/caracteres especiais; aceitaremos hífen via validação na controller
+    
     @NotBlank
     @Length(min = 4, max = 10)
     private String code;
