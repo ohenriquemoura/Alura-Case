@@ -1,4 +1,4 @@
-# Projeto Alura - Sistema de Ensino Online
+# Projeto Alura
 
 ## 📋 Visão Geral
 
