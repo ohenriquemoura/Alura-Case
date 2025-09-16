@@ -76,39 +76,29 @@ public class RegistrationController {
         return "registration";
     }
 
+    @GetMapping("/course-report")
+    public String courseReport() {
+        return "course-report";
+    }
+
+
     @GetMapping("/registration/report")
     @ResponseBody
-    public ResponseEntity<List<RegistrationReportItem>> report() {
-        List<RegistrationReportItem> items = new ArrayList<>();
+    public ResponseEntity<List<CourseReportDTO>> report() {
+        List<Object[]> results = registrationRepository.findCoursesWithEnrollmentCount();
+        
+        List<CourseReportDTO> report = results.stream()
+                .map(row -> new CourseReportDTO(
+                        ((Number) row[0]).longValue(),      // courseId
+                        (String) row[1],                    // courseName
+                        (String) row[2],                    // courseCode
+                        (String) row[3],                    // instructorEmail
+                        (String) row[4],                    // categoryName
+                        ((Number) row[5]).longValue()       // enrollmentCount
+                ))
+                .toList();
 
-        // TODO: Implementar a Questão 6 - Relatório de Cursos Mais Acessados aqui...
-
-        // Dados fictícios abaixo que devem ser substituídos
-        items.add(new RegistrationReportItem(
-                "Java para Iniciantes",
-                "java",
-                "Charles",
-                "charles@alura.com.br",
-                10L
-        ));
-
-        items.add(new RegistrationReportItem(
-                "Spring para Iniciantes",
-                "spring",
-                "Charles",
-                "charles@alura.com.br",
-                9L
-        ));
-
-        items.add(new RegistrationReportItem(
-                "Maven para Avançados",
-                "maven",
-                "Charles",
-                "charles@alura.com.br",
-                9L
-        ));
-
-        return ResponseEntity.ok(items);
+        return ResponseEntity.ok(report);
     }
 
 }

@@ -12,7 +12,7 @@ body {
 
 .container {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: auto 2fr;
     gap: 3rem;
     max-width: 1200px;
     width: 100%;
@@ -25,6 +25,10 @@ body {
     padding: 2rem;
     text-align: center;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    width: 320px;
+    min-width: 320px;
+    max-width: 320px;
+    height: fit-content;
 }
 
 .login-box h2 {

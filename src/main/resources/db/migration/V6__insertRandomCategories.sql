@@ -1,0 +1,22 @@
+-- Inserir 20 categorias aleatórias para teste de design
+INSERT INTO Category (name, code, color, icon, `order`, createdAt) VALUES
+('Programação Web', 'web-dev', '#FF6B6B', 'ti-world', 1, NOW()),
+('Data Science', 'data-science', '#4ECDC4', 'ti-bar-chart', 2, NOW()),
+('Mobile Development', 'mobile-dev', '#45B7D1', 'ti-mobile', 3, NOW()),
+('DevOps & Cloud', 'devops', '#96CEB4', 'ti-cloud', 4, NOW()),
+('Machine Learning', 'ml', '#FFEAA7', 'ti-brain', 5, NOW()),
+('Cybersecurity', 'cyber', '#DDA0DD', 'ti-shield', 6, NOW()),
+('Game Development', 'game-dev', '#98D8C8', 'ti-game', 7, NOW()),
+('UI/UX Design', 'ui-ux', '#F7DC6F', 'ti-palette', 8, NOW()),
+('Blockchain', 'blockchain', '#BB8FCE', 'ti-link', 9, NOW()),
+('Backend Development', 'backend', '#85C1E9', 'ti-server', 10, NOW()),
+('Frontend Development', 'frontend', '#F8C471', 'ti-layout', 11, NOW()),
+('Database Management', 'database', '#82E0AA', 'ti-database', 12, NOW()),
+('Software Testing', 'testing', '#F1948A', 'ti-check', 13, NOW()),
+('Project Management', 'pm', '#D7DBDD', 'ti-calendar', 14, NOW()),
+('Agile & Scrum', 'agile', '#AED6F1', 'ti-target', 15, NOW()),
+('Microservices', 'microservices', '#A9DFBF', 'ti-puzzle', 16, NOW()),
+('API Development', 'api-dev', '#F9E79F', 'ti-plug', 17, NOW()),
+('Cloud Computing', 'cloud', '#D5A6BD', 'ti-cloud-up', 18, NOW()),
+('Artificial Intelligence', 'ai', '#A3E4D7', 'ti-lightbulb', 19, NOW()),
+('Full Stack Development', 'fullstack', '#FADBD8', 'ti-layers', 20, NOW());
